@@ -1,10 +1,22 @@
 # Build OpenType fonts from source
 
-Open `digitalkhatt.code-workspace` in VS Code. The **Typesetting** folder provides the OpenType font tasks. The native workflow uses the enclosing DigitalKhatt workspace with VisualMetaFont, the three font projects, and the shared corpus and validation tools in `tools/font_validation/`. Run the commands below from the `typesetting` checkout.
+Open the `typesetting` checkout in VS Code with **File > Open Folder**. Run the commands below from that checkout. Set up `.venv` and the pinned Python dependencies to rebuild the release. [Standalone setup](../README.md#build-the-opentype-fonts)
+
+## Rebuild with the pinned glyph sources
+
+Install Git, CMake 3.24 or later, a C++23 toolchain, Flex, Bison, and the SQLite development library. The `fonts-v0.1.0` source rebuild was verified on macOS with Homebrew LLVM 22.1.2, Flex, and Bison. The task detects those Homebrew tools and honors `CC` and `CXX` when set. The source exporter’s generated glyph names can vary by toolchain, and the saved spacing rules refer to those names.
+
+```sh
+python -m fonts.portable.rebuild_release releases/fonts-v0.1.0.json --from-source
+```
+
+In the VS Code Command Palette, choose **Tasks: Run Task**, then **Build OpenType fonts from pinned glyph sources**. The task caches the Git checkouts and the exporter build under `output/rebuild/`. It applies the release’s saved spacing rules and writes the variable fonts to `dist/from-source/`.
 
 ## Build from scratch
 
-Choose **Build fonts from scratch** in VS Code. It builds the native exporter and renderer, exports the complete original corpora with CGJs retained, fits rules from an empty set, and builds TTF and WOFF2 for all three families. The equivalent commands use Python 3.11 or newer and the prerequisites for the macOS CMake preset.
+Refitting and full-corpus validation use the native renderer and shared corpus tools. For these tasks, place `typesetting/` inside the DigitalKhatt development workspace with VisualMetaFont, the three font projects, and `tools/font_validation/`.
+
+Run **Build fonts from scratch** in VS Code. It builds the native exporter and renderer, exports the complete original corpora with CGJs retained, fits mark and kerning adjustments from an empty set, and builds TTF and WOFF2 for all three families. The equivalent commands use Python 3.11 or newer and the prerequisites for the macOS CMake preset.
 
 ```sh
 python3 -m pip install -r requirements.txt

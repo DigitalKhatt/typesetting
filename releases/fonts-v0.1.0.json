@@ -1,12 +1,5 @@
 {
   "tag": "fonts-v0.1.0",
-  "profile": "portable",
-  "weightAxis": {
-    "tag": "wght",
-    "min": 400,
-    "default": 400,
-    "max": 700
-  },
   "build": {
     "sourceDateEpoch": 1767225600,
     "fonttools": "4.59.0",
@@ -30,197 +23,42 @@
       "--no-variable"
     ]
   },
+  "regularInputArchive": "portable-regular-inputs.zip",
   "families": {
     "madina": {
-      "name": "New Madina",
       "sourceRepository": "https://github.com/DigitalKhatt/madinafont",
       "sourceRevision": "76fec9e1255c9ffebe68521d5f3ec3cb26e34388",
-      "license": {
-        "source": "https://github.com/DigitalKhatt/madinafont/blob/76fec9e1255c9ffebe68521d5f3ec3cb26e34388/LICENSE",
-        "fontArchivePath": "licenses/New-Madina-OFL.txt",
-        "regularInputArchivePath": "portable-regular-inputs/licenses/New-Madina-OFL.txt"
-      },
       "regularInput": {
         "path": "portable-regular-inputs/madina.otf",
-        "bytes": 2491520,
         "sha256": "9853e6c1eeba83cfb2303eba5c59a0533906e4d1b47b9cb94798801dc6d78f1c"
       },
       "spacingRules": {
         "path": "fonts/portable/data/mark_spacing/madina.json",
-        "bytes": 8143,
         "sha256": "610e10939c2b963e9492345c72ea327fe6196cf1431c82b0a9251208bd4f7f41"
-      },
-      "fonts": {
-        "ttf": {
-          "name": "DigitalKhattNewMadina-VF.ttf",
-          "bytes": 759552,
-          "sha256": "9daf0806fc7f1b79acdfbd23f3e3ec5c31b6e006329117590e7f239b9a62753b"
-        },
-        "woff2": {
-          "name": "DigitalKhattNewMadina-VF.woff2",
-          "bytes": 154028,
-          "sha256": "55a95c5c5ac8f94a97536bfed34c31203879ed0f9226807ea968dfa7ee943b32"
-        }
       }
     },
     "oldmadina": {
-      "name": "Old Madina",
       "sourceRepository": "https://github.com/DigitalKhatt/oldmadinafont",
       "sourceRevision": "04d33f799965b50c10d5518a9c6bcddf508bea98",
-      "license": {
-        "source": "https://github.com/DigitalKhatt/oldmadinafont/blob/04d33f799965b50c10d5518a9c6bcddf508bea98/LICENSE",
-        "fontArchivePath": "licenses/Old-Madina-OFL.txt",
-        "regularInputArchivePath": "portable-regular-inputs/licenses/Old-Madina-OFL.txt"
-      },
       "regularInput": {
         "path": "portable-regular-inputs/oldmadina.otf",
-        "bytes": 2387068,
         "sha256": "26c4371aa14351e095059012fe96b31c784fca9d27c15a024943aea88f250889"
       },
       "spacingRules": {
         "path": "fonts/portable/data/mark_spacing/oldmadina.json",
-        "bytes": 61311,
         "sha256": "707c93acaaca105e5bdd4913ef1587bbbb78b33a2f34adaa268fb84ef17e2625"
-      },
-      "fonts": {
-        "ttf": {
-          "name": "DigitalKhattOldMadina-VF.ttf",
-          "bytes": 903040,
-          "sha256": "3d9e680655a5412816abb4f75fc3df9bd8f42ab69c0af686a3478f2aa526ba37"
-        },
-        "woff2": {
-          "name": "DigitalKhattOldMadina-VF.woff2",
-          "bytes": 165452,
-          "sha256": "fa1f2d42409e281234ce193dc5fddc2ee284bed30d541130d147efa828080991"
-        }
       }
     },
     "indopak": {
-      "name": "IndoPak",
       "sourceRepository": "https://github.com/DigitalKhatt/indopakfont",
       "sourceRevision": "7bccd4acf0662eb7433a2acfedb8fa4c201a9fe0",
-      "license": {
-        "source": "https://github.com/DigitalKhatt/indopakfont/blob/7bccd4acf0662eb7433a2acfedb8fa4c201a9fe0/LICENSE",
-        "fontArchivePath": "licenses/IndoPak-OFL.txt",
-        "regularInputArchivePath": "portable-regular-inputs/licenses/IndoPak-OFL.txt"
-      },
       "regularInput": {
         "path": "portable-regular-inputs/indopak.otf",
-        "bytes": 1557412,
         "sha256": "2d484d1dfdabd1f103e11c4be495af7a694b1becff013999c7a0a9ad712b3ffd"
       },
       "spacingRules": {
         "path": "fonts/portable/data/mark_spacing/indopak.json",
-        "bytes": 7268,
         "sha256": "2ff8158a4bca22e5f0965afd6ab303331f86973c87b2a5e7d33f63514b5c8744"
-      },
-      "fonts": {
-        "ttf": {
-          "name": "DigitalKhattIndoPak-VF.ttf",
-          "bytes": 736724,
-          "sha256": "7564358ed5f860c90336f65e0fd187d2fee445a1bbf6fab4e4937a4e5a5fafa5"
-        },
-        "woff2": {
-          "name": "DigitalKhattIndoPak-VF.woff2",
-          "bytes": 128364,
-          "sha256": "ecab9f9b2d336c87468643ad7e7ff53507cbd0e68a494b8d43dfcf1c58e1170f"
-        }
-      }
-    }
-  },
-  "archives": {
-    "DigitalKhatt-OpenType-Fonts.zip": {
-      "bytes": 1097145,
-      "sha256": "fa5e76db816e8816d18d9d7db0eaf5d726f63ee8d5f43f98aa5278b0a083dd00"
-    },
-    "portable-regular-inputs.zip": {
-      "bytes": 1016589,
-      "sha256": "40224a49511a922a3f04934711e75b1042d828d7658efee43db4a1843c6953b4"
-    }
-  },
-  "validation": {
-    "standaloneTtfMatchesWorkspaceTtf": true,
-    "sanitizerAcceptedAllSixFonts": true,
-    "fullCorpusSampleWeights": [
-      400,
-      550,
-      700
-    ],
-    "clearanceEngines": [
-      "HarfBuzz OpenType",
-      "HarfBuzz CoreText backend",
-      "DirectWrite Core 2.1.0"
-    ],
-    "layoutComparisons": [
-      "HarfBuzz OpenType",
-      "HarfBuzz CoreText backend"
-    ],
-    "families": {
-      "madina": {
-        "originalCorpusLines": 9046,
-        "cgjCount": 29883,
-        "originalCorpusSha256": "0a4b5ee9eb647f4cfe9273c509638c7f684b2845519be011a883e766fb9acb03",
-        "layoutDifferencesAgainstCubicOrFlatTTF": 0,
-        "lineClearanceFindingsOnSampledWeights": 0,
-        "nativeJustifiedPages": 604,
-        "nativeJustifiedChangedLines": 0,
-        "attachmentCheckWeights": [
-          400,
-          550,
-          700
-        ],
-        "newJoinSeparations": 0,
-        "anchorAlignmentFindings": 0,
-        "existingRegularStrokeSeparationsByWeight": {}
-      },
-      "oldmadina": {
-        "originalCorpusLines": 9046,
-        "cgjCount": 29883,
-        "originalCorpusSha256": "51035dab59d31205d5ae2805f8807e4c2ca7d24ebcbd8658b2ef68d813316e8e",
-        "layoutDifferencesAgainstCubicOrFlatTTF": 0,
-        "lineClearanceFindingsOnSampledWeights": 0,
-        "nativeJustifiedPages": 604,
-        "nativeJustifiedChangedLines": 0,
-        "attachmentCheckWeights": [
-          400,
-          400.018310546875,
-          400.03662109375,
-          410,
-          470,
-          485,
-          550,
-          699.981689453125,
-          700
-        ],
-        "newJoinSeparations": 0,
-        "anchorAlignmentFindings": 0,
-        "existingRegularStrokeSeparationsByWeight": {
-          "400": 637,
-          "400.018311": 637,
-          "400.036621": 637,
-          "410": 637
-        }
-      },
-      "indopak": {
-        "originalCorpusLines": 9131,
-        "cgjCount": 3525,
-        "originalCorpusSha256": "08bc424636467295e2a5df9da3df4a45bb2831074aa5a2ff7b47594c8d330739",
-        "layoutDifferencesAgainstCubicOrFlatTTF": 0,
-        "lineClearanceFindingsOnSampledWeights": 0,
-        "nativeJustifiedPages": 610,
-        "nativeJustifiedChangedLines": 0,
-        "attachmentCheckWeights": [
-          400,
-          550,
-          700
-        ],
-        "newJoinSeparations": 0,
-        "anchorAlignmentFindings": 0,
-        "existingRegularStrokeSeparationsByWeight": {
-          "400": 4758,
-          "550": 4758,
-          "700": 4758
-        }
       }
     }
   }

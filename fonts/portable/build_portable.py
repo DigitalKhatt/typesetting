@@ -2,6 +2,7 @@
 import argparse
 from contextlib import contextmanager
 from dataclasses import dataclass
+from importlib.metadata import PackageNotFoundError, version
 import json
 import math
 import os
@@ -27,6 +28,13 @@ FAMILIES = {
     'indopak': 'DigitalKhattIndoPak',
 }
 FONT_STEMS = {key: name + '-VF' for key, name in FAMILIES.items()}
+
+
+def installed_version(package):
+    try:
+        return version(package)
+    except PackageNotFoundError:
+        return None
 
 
 @dataclass
@@ -138,6 +146,8 @@ def compile_family(key, source, args, work, *, woff2):
         sourceSha256=file_hash(source),
         sourceDateEpoch=args.epoch,
         fontTools=fontTools.__version__,
+        uharfbuzz=installed_version('uharfbuzz'),
+        brotli=installed_version('brotlicffi') or installed_version('Brotli'),
         spacing=dict(markRules=sum(r[2] == 'mark' for r in spacing),
                      kernRules=sum(r[2] == 'kern' for r in spacing),
                      rulesSha256=rules_digest),
@@ -152,6 +162,8 @@ def compile_family(key, source, args, work, *, woff2):
     )
     if compact:
         report['spacing']['contextualBoldScale'] = compact_mark.BOLD_SCALE
+    if args.overrides:
+        report['weight']['overrides'] = str(args.overrides)
     return CompiledFamily(final, web, cubic, flat, shared, layout, spacing, report)
 
 

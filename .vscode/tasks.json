@@ -4,6 +4,33 @@
   "problemMatcher": [],
   "tasks": [
     {
+      "label": "Build OpenType fonts",
+      "detail": "Rebuild the release using its downloaded Regular OTFs and saved spacing rules. Writes dist.",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": { "command": "${workspaceFolder}/.venv/Scripts/python.exe" },
+      "args": ["-m", "fonts.portable.rebuild_release", "releases/fonts-v0.1.0.json"],
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "Build OpenType fonts from pinned glyph sources",
+      "detail": "Fetch the pinned glyph projects and VisualMetaFont exporter, generate Regular OTFs, then build the fonts in dist/from-source.",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": { "command": "${workspaceFolder}/.venv/Scripts/python.exe" },
+      "args": ["-m", "fonts.portable.rebuild_release", "releases/fonts-v0.1.0.json", "--from-source"],
+      "group": "build"
+    },
+    {
+      "label": "Generate release manifest",
+      "detail": "Verify the standalone build outputs and write the release manifest in dist.",
+      "type": "process",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "windows": { "command": "${workspaceFolder}/.venv/Scripts/python.exe" },
+      "args": ["-m", "fonts.portable.release_manifest"],
+      "group": "build"
+    },
+    {
       "label": "Build and check release fonts",
       "detail": "Build with saved rules, then run weight coverage, attachments and native reading proofs.",
       "type": "process",
@@ -63,7 +90,7 @@
         "--output", "${workspaceFolder}/output/fonts"
       ],
       "dependsOn": "Prepare missing corpora",
-      "group": { "kind": "build", "isDefault": true }
+      "group": "build"
     },
     {
       "label": "Build fonts from scratch",
