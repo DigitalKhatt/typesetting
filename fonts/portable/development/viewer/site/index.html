@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glyph review · DigitalKhatt</title>
+  <link rel="stylesheet" href="review.css">
+  <script src="review.js" defer></script>
+</head>
+<body>
+  <header class="controls">
+    <div class="control-inner">
+      <div class="heading">
+        <h1>Glyph review</h1>
+        <div id="families" class="segments" role="group" aria-label="Corpus"></div>
+      </div>
+      <div class="toolbar">
+        <div class="weight-control">
+          <label for="weight">Weight <output for="weight" id="weight-value">700</output></label>
+          <input type="range" id="weight" min="400" max="700" value="700">
+          <div class="presets" id="presets" aria-label="Weight presets"></div>
+        </div>
+        <label class="switch"><input type="checkbox" id="overlay"> Overlay Regular</label>
+        <div class="legend" id="legend" hidden>
+          <span><i class="lost"></i>Regular only</span>
+          <span><i class="added"></i>Selected only</span>
+          <span><i class="shared"></i>Shared</span>
+        </div>
+      </div>
+      <div class="filters">
+        <label class="field search">Find glyph
+          <input type="search" id="search" placeholder="Name or GID" autocomplete="off" spellcheck="false">
+        </label>
+        <label class="field">Type
+          <select id="kind">
+            <option value="all">All glyphs</option>
+            <option value="Base">Bases</option>
+            <option value="Ligature">Ligatures</option>
+            <option value="Mark">Marks</option>
+            <option value="Component">Components</option>
+            <option value="Unclassified">Unclassified</option>
+            <option value="empty">Empty outlines</option>
+          </select>
+        </label>
+        <label class="field">Sort
+          <select id="sort">
+            <option value="id">Glyph ID</option>
+            <option value="name">Glyph name</option>
+            <option value="frequency">Most used</option>
+          </select>
+        </label>
+        <label class="field">Grid
+          <select id="density">
+            <option value="compact">Compact</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+        </label>
+        <label class="switch changed"><input type="checkbox" id="changed"> Weight changes only</label>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="results">
+      <p id="summary" role="status">Loading corpora…</p>
+      <p id="corpus-info"></p>
+    </div>
+    <p id="error" class="error" role="alert" hidden></p>
+    <p id="empty" class="empty-state" hidden>No glyphs match these filters.</p>
+    <div class="grid" id="grid" data-density="compact"></div>
+  </main>
+
+  <template id="card">
+    <button class="glyph-card" type="button">
+      <span class="ink">
+        <canvas width="0" height="0" aria-hidden="true"></canvas>
+        <span class="no-ink" hidden>No outline</span>
+      </span>
+      <span class="glyph-info">
+        <span class="glyph-name"></span>
+        <span class="glyph-meta"></span>
+      </span>
+    </button>
+  </template>
+
+  <dialog id="detail" aria-labelledby="detail-title">
+    <div class="detail-heading">
+      <div>
+        <h2 id="detail-title"></h2>
+        <p id="detail-meta"></p>
+      </div>
+      <form method="dialog"><button class="close" autofocus>Close</button></form>
+    </div>
+    <div class="detail-weight">
+      <label for="detail-weight">Weight <output for="detail-weight" id="detail-value">700</output></label>
+      <input type="range" id="detail-weight" min="400" max="700" value="700">
+    </div>
+    <div class="detail-shapes" id="detail-shapes">
+      <figure>
+        <figcaption id="regular-label">Regular · 400</figcaption>
+        <canvas id="detail-regular" aria-label="Regular outline"></canvas>
+      </figure>
+      <figure>
+        <figcaption id="selected-label">Selected · 700</figcaption>
+        <canvas id="detail-selected" aria-label="Selected weight outline"></canvas>
+      </figure>
+    </div>
+    <p id="detail-empty" hidden>This glyph has no outline.</p>
+    <section class="example" aria-labelledby="example-title">
+      <h3 id="example-title">Corpus example</h3>
+      <p id="example-location"></p>
+      <p id="example-text" lang="ar" dir="rtl"></p>
+    </section>
+  </dialog>
+</body>
+</html>

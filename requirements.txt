@@ -1,0 +1,3 @@
+fonttools[repacker]==4.59.0
+uharfbuzz==0.50.2
+Brotli==1.1.0

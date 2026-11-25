@@ -1,0 +1,377 @@
+{
+  "version": "2.0.0",
+  "options": { "cwd": "${workspaceFolder}" },
+  "problemMatcher": [],
+  "tasks": [
+    {
+      "label": "Build and check release fonts",
+      "detail": "Build with saved rules, then run weight coverage, attachments and native reading proofs.",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "fonts.portable.development.build_portable", "--release", "--spacing-rules", "${workspaceFolder}/fonts/portable/data/mark_spacing",
+               "--corpus-root", "${workspaceFolder}/output/corpora", "--output", "${workspaceFolder}/output/fonts",
+               "--goldens", "${workspaceFolder}/reading-goldens"],
+      "dependsOn": "Prepare missing corpora",
+      "group": "build"
+    },
+    {
+      "label": "Serve corpus glyph review",
+      "detail": "Generate a dense weight comparison grid from the used glyphs in all three corpora and open it in a browser.",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "fonts.portable.development.viewer.review_glyphs", "--fonts", "${workspaceFolder}/${input:buildRoot}/fonts", "--corpus-root", "${workspaceFolder}/output/corpora",
+               "--output", "${workspaceFolder}/${input:buildRoot}/glyph-review", "--serve", "--port", "0", "--open"],
+      "dependsOn": "Prepare missing corpora",
+      "group": "test"
+    },
+    {
+      "label": "Run release checks on built TTFs",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "fonts.portable.development.validation.release_checks", "--fonts", "${workspaceFolder}/${input:buildRoot}/fonts",
+               "--corpus-root", "${workspaceFolder}/output/corpora", "--goldens", "${workspaceFolder}/reading-goldens"],
+      "dependsOn": "Prepare missing corpora",
+      "group": "test"
+    },
+    {
+      "label": "Generate native reading proofs",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "fonts.portable.development.validation.release_checks", "--fonts", "${workspaceFolder}/${input:buildRoot}/fonts", "--corpus-root", "${workspaceFolder}/output/corpora",
+               "--output", "${workspaceFolder}/${input:buildRoot}/reading-review", "--captures", "${workspaceFolder}/${input:buildRoot}/release/captures",
+               "--no-weight-coverage", "--no-attachments", "--goldens", "${workspaceFolder}/reading-goldens"],
+      "dependsOn": "Prepare missing corpora",
+      "group": "test"
+    },
+    {
+      "label": "Install release validation dependencies",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "pip", "install", "-r", "requirements.txt", "skia-pathops", "opentype-sanitizer", "Pillow"]
+    },
+    {
+      "label": "Build fonts from saved rules",
+      "detail": "Build TTF and WOFF2 for all three families using saved rules, and check shaping against the full corpora. Writes output/fonts.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.build_portable", "--woff2",
+        "--spacing-rules", "${workspaceFolder}/fonts/portable/data/mark_spacing",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--check-shaping",
+        "--keep-intermediates",
+        "--output", "${workspaceFolder}/output/fonts"
+      ],
+      "dependsOn": "Prepare missing corpora",
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "Build fonts from scratch",
+      "detail": "Export fresh corpora, fit mark and kern rules from empty sets, then build and check TTF and WOFF2 for all three families under output/fit/fonts.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.build_portable", "--woff2",
+        "--spacing-rules", "${workspaceFolder}/output/fit/rules",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--check-shaping",
+        "--keep-intermediates",
+        "--output", "${workspaceFolder}/output/fit/fonts"
+      ],
+      "dependsOn": "Fit rules from scratch",
+      "group": "build"
+    },
+    {
+      "label": "Build fonts from archived checkpoints",
+      "detail": "Replay the bundled checkpoints, verify the rule hashes and build all three fonts under output/replay/fonts.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.build_portable", "--woff2",
+        "--spacing-rules", "${workspaceFolder}/output/replay/rules",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--check-shaping",
+        "--keep-intermediates",
+        "--output", "${workspaceFolder}/output/replay/fonts"
+      ],
+      "dependsOrder": "sequence",
+      "dependsOn": ["Replay archived rules", "Prepare missing corpora"],
+      "group": "build"
+    },
+    {
+      "label": "Rebuild fonts from last fit",
+      "detail": "Use the existing output/fit/rules JSON, including local edits. Writes output/fit/fonts and skips fitting.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.build_portable", "--woff2",
+        "--spacing-rules", "${workspaceFolder}/output/fit/rules",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--check-shaping",
+        "--keep-intermediates",
+        "--output", "${workspaceFolder}/output/fit/fonts"
+      ],
+      "dependsOn": "Prepare missing corpora",
+      "group": "build"
+    },
+    {
+      "label": "Fit rules from scratch",
+      "detail": "Start with empty rules and measure 400, 550 and 700 with HarfBuzz. Save the best measured rules, TTFs and round reports under output/fit.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.regenerate_spacing", "fit",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--output", "${workspaceFolder}/output/fit"
+      ],
+      "dependsOn": "Refresh original corpora"
+    },
+    {
+      "label": "Refine existing rules",
+      "detail": "Choose the starting JSON and sampling interval. The selected rules from this run become the last fit.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.regenerate_spacing", "fit",
+        "--seed-rules", "${workspaceFolder}/${input:seedRules}",
+        "--weight-step", "${input:weightStep}",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--output", "${workspaceFolder}/output/fit"
+      ],
+      "dependsOn": "Prepare missing corpora"
+    },
+    {
+      "label": "Refine rules with all three engines",
+      "detail": "Fit one set of rules against HarfBuzz, CoreText and the selected DirectWrite runtime. Writes output/fit.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.regenerate_spacing", "fit",
+        "--seed-rules", "${workspaceFolder}/${input:seedRules}",
+        "--engine", "ot",
+        "--engine", "coretext",
+        "--engine", "directwrite",
+        "--dwrite-version", "${input:directWriteVersion}",
+        "--weight-step", "${input:weightStep}",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--output", "${workspaceFolder}/output/fit"
+      ],
+      "dependsOn": "Prepare missing corpora"
+    },
+    {
+      "label": "Replay archived rules",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "fonts.portable.development.regenerate_spacing", "replay", "--output", "${workspaceFolder}/output/replay"]
+    },
+    {
+      "label": "Prepare missing corpora",
+      "detail": "Reuse the complete local export for each family and export any missing family.",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "fonts.portable.development.prepare_corpora", "--output", "${workspaceFolder}/output/corpora", "--if-missing"],
+      "dependsOn": "Build native tools"
+    },
+    {
+      "label": "Refresh original corpora",
+      "detail": "Export all pages from the three shared layouts with their original text and CGJs.",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "fonts.portable.development.prepare_corpora", "--output", "${workspaceFolder}/output/corpora"],
+      "dependsOn": "Build native tools"
+    },
+    {
+      "label": "Configure native tools",
+      "type": "process",
+      "command": "cmake",
+      "options": { "cwd": "${workspaceFolder}/.." },
+      "args": ["--preset", "macos"]
+    },
+    {
+      "label": "Build native tools",
+      "type": "process",
+      "command": "cmake",
+      "options": { "cwd": "${workspaceFolder}/.." },
+      "args": [
+        "--build",
+        "--preset", "release-macos",
+        "--target",
+        "digitalkhatt_generate_opentype",
+        "digitalkhatt_generate_mushaf",
+        "digitalkhatt_geometry",
+        "digitalkhatt_layout",
+        "madina_font",
+        "oldmadina_font",
+        "indopak_font"
+      ],
+      "dependsOn": "Configure native tools"
+    },
+    {
+      "label": "Install Python dependencies",
+      "detail": "Install the pinned Portable compiler dependencies into the python3 environment on PATH.",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "pip", "install", "-r", "requirements.txt"]
+    },
+    {
+      "label": "Check spacing with HarfBuzz and CoreText",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.validation.check_mark_spacing",
+        "--fonts", "${workspaceFolder}/${input:buildRoot}/fonts",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--engine", "ot",
+        "--engine", "coretext",
+        "--weight-step", "${input:weightStep}",
+        "--output", "${workspaceFolder}/${input:buildRoot}/validation",
+        "--stage", "hb-ct-step-${input:weightStep}"
+      ],
+      "dependsOn": "Prepare missing corpora",
+      "group": "test"
+    },
+    {
+      "label": "Set up DirectWrite",
+      "detail": "Install the selected pinned Microsoft runtime in the shared DirectWrite toolchain.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "../tools/font_validation/validate.py",
+        "setup-directwrite",
+        "--dwrite-version", "${input:directWriteVersion}"
+      ]
+    },
+    {
+      "label": "Check spacing with DirectWrite",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.validation.check_mark_spacing",
+        "--fonts", "${workspaceFolder}/${input:buildRoot}/fonts",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--engine", "directwrite",
+        "--dwrite-version", "${input:directWriteVersion}",
+        "--weight-step", "${input:weightStep}",
+        "--output", "${workspaceFolder}/${input:buildRoot}/validation",
+        "--stage", "directwrite-${input:directWriteVersion}-step-${input:weightStep}"
+      ],
+      "dependsOn": "Prepare missing corpora",
+      "group": "test"
+    },
+    {
+      "label": "Check spacing at interval midpoints",
+      "detail": "Test the weight halfway between successive grid points on all three engines.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.validation.check_mark_spacing",
+        "--fonts", "${workspaceFolder}/${input:buildRoot}/fonts",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--engine", "ot",
+        "--engine", "coretext",
+        "--engine", "directwrite",
+        "--dwrite-version", "${input:directWriteVersion}",
+        "--weight-step", "${input:weightStep}",
+        "--interval-midpoints",
+        "--output", "${workspaceFolder}/${input:buildRoot}/validation",
+        "--stage", "midpoints-${input:directWriteVersion}-step-${input:weightStep}"
+      ],
+      "dependsOn": "Prepare missing corpora",
+      "group": "test"
+    },
+    {
+      "label": "Collect Bold DirectWrite outlines",
+      "detail": "Save native records and pairs within the 10-unit review margin for one font at weight 700.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.validation.check_mark_spacing",
+        "--fonts", "${workspaceFolder}/${input:buildRoot}/fonts",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--family", "${input:family}",
+        "--engine", "directwrite",
+        "--dwrite-version", "${input:directWriteVersion}",
+        "--weight", "700",
+        "--review-margin", "10",
+        "--keep-records",
+        "--output", "${workspaceFolder}/${input:buildRoot}/validation",
+        "--stage", "directwrite-${input:directWriteVersion}-bold"
+      ],
+      "dependsOn": "Prepare missing corpora",
+      "group": "test"
+    },
+    {
+      "label": "Measure Bold Bézier gaps",
+      "detail": "Read the matching build, family and DirectWrite version from Collect Bold DirectWrite outlines.",
+      "type": "process",
+      "command": "python3",
+      "args": [
+        "-m", "fonts.portable.development.validation.verify_outline_gap",
+        "--fonts", "${workspaceFolder}/${input:buildRoot}/fonts",
+        "--corpus-root", "${workspaceFolder}/output/corpora",
+        "--family", "${input:family}",
+        "--weight", "700",
+        "--nearby",
+        "--run", "${workspaceFolder}/${input:buildRoot}/validation/${input:family}/unjustified/directwrite-${input:directWriteVersion}-bold",
+        "--output", "${workspaceFolder}/${input:buildRoot}/validation/${input:family}/unjustified/directwrite-${input:directWriteVersion}-bold/bezier-gaps.json"
+      ],
+      "group": "test"
+    },
+    {
+      "label": "Run variable font unit tests",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "unittest", "discover", "-s", "tests/development"],
+      "dependsOn": "Run Portable compiler tests",
+      "group": "test"
+    },
+    {
+      "label": "Run Portable compiler tests",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "unittest", "discover", "-s", "tests"],
+      "group": "test"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "buildRoot",
+      "type": "pickString",
+      "description": "Which built fonts should be checked?",
+      "options": [
+        { "label": "Saved rules", "value": "output" },
+        { "label": "Last fit", "value": "output/fit" },
+        { "label": "Replayed checkpoints", "value": "output/replay" }
+      ],
+      "default": "output"
+    },
+    {
+      "id": "seedRules",
+      "type": "pickString",
+      "description": "Start fitting from which rule files?",
+      "options": ["fonts/portable/data/mark_spacing", "output/fit/rules", "output/replay/rules"],
+      "default": "fonts/portable/data/mark_spacing"
+    },
+    {
+      "id": "weightStep",
+      "type": "pickString",
+      "description": "Weight increment from 400 through 700",
+      "options": ["25", "150", "1"],
+      "default": "25"
+    },
+    {
+      "id": "directWriteVersion",
+      "type": "pickString",
+      "description": "Microsoft DirectWrite Core version",
+      "options": ["2.1.0", "2.6.4"],
+      "default": "2.1.0"
+    },
+    {
+      "id": "family",
+      "type": "pickString",
+      "description": "Family for the Bold outline measurements",
+      "options": ["oldmadina", "madina", "indopak"],
+      "default": "oldmadina"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+/.venv/
+/dist/
+/output/
+/portable-regular-inputs/
+/portable-regular-inputs.zip
+__pycache__/
+.DS_Store

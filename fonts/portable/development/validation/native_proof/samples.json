@@ -1,0 +1,15 @@
+{
+  "pixels": [18, 24],
+  "weights": [400, 550, 700],
+  "lineWidthEm": 24,
+  "wordWidthEm": 9,
+  "lineHeightEm": 1.8,
+  "baselineEm": 1.25,
+  "insetPixels": 2,
+  "guardPixels": 16,
+  "samples": [
+    { "page": 2, "line": 4 },
+    { "page": 97, "line": 2, "word": 4 },
+    { "page": 332, "line": 15, "word": 7 }
+  ]
+}

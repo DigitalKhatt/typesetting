@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.20)
+project(PortableReadingProof LANGUAGES CXX)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Gui)
+add_executable(portable-reading-proof desktop.cpp)
+target_compile_features(portable-reading-proof PRIVATE cxx_std_17)
+target_link_libraries(portable-reading-proof PRIVATE Qt6::Gui)
