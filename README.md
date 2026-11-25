@@ -8,11 +8,11 @@ This project is sponsored by [@tarteelAI](https://github.com/TarteelAI) [<img sr
 
 ## Downloads
 
-| Family | Install or use in an app | Use on the web | License |
-| --- | --- | --- | --- |
-| New Madina | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattNewMadina-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattNewMadina-VF.woff2) | [OFL](https://github.com/DigitalKhatt/madinafont/blob/76fec9e1255c9ffebe68521d5f3ec3cb26e34388/LICENSE) |
-| Old Madina | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattOldMadina-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattOldMadina-VF.woff2) | [OFL](https://github.com/DigitalKhatt/oldmadinafont/blob/04d33f799965b50c10d5518a9c6bcddf508bea98/LICENSE) |
-| IndoPak | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattIndoPak-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattIndoPak-VF.woff2) | [OFL](https://github.com/DigitalKhatt/indopakfont/blob/7bccd4acf0662eb7433a2acfedb8fa4c201a9fe0/LICENSE) |
+| Family | Install or use in an app | Use on the web |
+| --- | --- | --- |
+| New Madina | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattNewMadina-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattNewMadina-VF.woff2) |
+| Old Madina | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattOldMadina-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattOldMadina-VF.woff2) |
+| IndoPak | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattIndoPak-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattIndoPak-VF.woff2) |
 
 The collection ZIP includes all six files and their font licenses. Asset names
 stay the same across releases. The release tag identifies the exact version,
@@ -95,10 +95,3 @@ The compiler verifies decoded OpenType layout tables and compares outlines and
 advances at weights 400, 550, and 700. Run the compiler tests with
 `python -m unittest discover -s tests`. See the [release validation summary](releases/fonts-v0.1.0.md)
 for the corpus and packaging results.
-
-## Licenses
-
-The build code and documentation use MIT. [License text](LICENSE)
-
-The download table links to each family’s source license. Both release ZIPs
-include the corresponding copyright notices and the SIL Open Font License text.
