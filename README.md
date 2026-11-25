@@ -1,6 +1,6 @@
 # DigitalKhatt Typesetting
 
-DigitalKhatt builds Quran fonts for apps and browsers. The Portable collection
+DigitalKhatt builds Quran fonts for apps and browsers. The OpenType collection
 includes New Madina, Old Madina, and IndoPak. Each family offers a continuous
 `wght` axis from 400 to 700, with Regular at 400 and Bold at 700.
 
@@ -10,26 +10,27 @@ This project is sponsored by [@tarteelAI](https://github.com/TarteelAI) [<img sr
 
 | Family | Install or use in an app | Use on the web | License |
 | --- | --- | --- | --- |
-| New Madina | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattNewMadina-Portable-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattNewMadina-Portable-VF.woff2) | [OFL](https://github.com/DigitalKhatt/madinafont/blob/85b392801efd6016be6e8b816c975d212d65d127/LICENSE) |
-| Old Madina | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattOldMadina-Portable-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattOldMadina-Portable-VF.woff2) | [OFL](https://github.com/DigitalKhatt/oldmadinafont/blob/04d33f799965b50c10d5518a9c6bcddf508bea98/LICENSE) |
-| IndoPak | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattIndoPak-Portable-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattIndoPak-Portable-VF.woff2) | [OFL](https://github.com/DigitalKhatt/indopakfont/blob/7bccd4acf0662eb7433a2acfedb8fa4c201a9fe0/LICENSE) |
+| New Madina | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattNewMadina-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattNewMadina-VF.woff2) | [OFL](https://github.com/DigitalKhatt/madinafont/blob/76fec9e1255c9ffebe68521d5f3ec3cb26e34388/LICENSE) |
+| Old Madina | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattOldMadina-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattOldMadina-VF.woff2) | [OFL](https://github.com/DigitalKhatt/oldmadinafont/blob/04d33f799965b50c10d5518a9c6bcddf508bea98/LICENSE) |
+| IndoPak | [TTF](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattIndoPak-VF.ttf) | [WOFF2](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhattIndoPak-VF.woff2) | [OFL](https://github.com/DigitalKhatt/indopakfont/blob/7bccd4acf0662eb7433a2acfedb8fa4c201a9fe0/LICENSE) |
 
-Download all six files with their font licenses in the [collection ZIP](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhatt-Portable-Fonts-0.1.0.zip).
-The [release manifest](releases/fonts-v0.1.0.json) records sizes, checksums,
-and source revisions.
+The collection ZIP includes all six files and their font licenses. Asset names
+stay the same across releases. The release tag identifies the exact version,
+and the manifest records sizes, checksums, and source revisions.
+[Collection ZIP](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/DigitalKhatt-OpenType-Fonts.zip) · [Release manifest](releases/fonts-v0.1.0.json)
 
 Host the WOFF2 next to your stylesheet and declare the full weight range.
 
 ```css
 @font-face {
-  font-family: "DigitalKhatt New Madina Portable";
-  src: url("DigitalKhattNewMadina-Portable-VF.woff2") format("woff2");
+  font-family: "DigitalKhatt New Madina";
+  src: url("DigitalKhattNewMadina-VF.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
 }
 ```
 
-## Build the Portable fonts
+## Build the OpenType fonts
 
 Use Python 3.11 or later. Download and extract the [Regular OTF inputs](https://github.com/DigitalKhatt/typesetting/releases/download/fonts-v0.1.0/portable-regular-inputs.zip)
 beside this README. The archive contains the three static Portable CFF2 exports

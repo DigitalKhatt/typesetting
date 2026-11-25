@@ -18,7 +18,7 @@ from fontTools.ttLib import TTFont
 from tools.compare_baselines.compare_baselines import run_lock
 from tools.font_validation.validate import live_settings
 
-from ..project import FAMILIES, FONTS_DIR, VALIDATION_DIR, WORKSPACE
+from ..project import FAMILIES, FONTS_DIR, VALIDATION_DIR, WORKSPACE, built_ttf
 from .directwrite_spacing import DirectWriteProbe
 from ...font_checks import file_hash
 from .portable_checks import corpus_run, cursive_subtables
@@ -233,7 +233,7 @@ def main():
         for key in args.family or FAMILIES:
             folder = args.output/key/'unjustified'
             folder.mkdir(parents=True, exist_ok=True)
-            source_font = args.fonts/key/(FAMILIES[key]+'-Portable-VF.ttf')
+            source_font = built_ttf(args.fonts / key, key)
             inputs = probes / key
             inputs.mkdir()
             font = inputs / source_font.name

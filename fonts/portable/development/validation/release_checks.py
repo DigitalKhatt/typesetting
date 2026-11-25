@@ -11,7 +11,7 @@ from fontTools.ttLib import TTFont
 from tools.compare_baselines.compare_baselines import run_lock
 from tools.font_validation.validate import load, save
 
-from ..project import FAMILIES, FONTS_DIR, VALIDATION_DIR, WORKSPACE
+from ..project import FAMILIES, FONTS_DIR, VALIDATION_DIR, WORKSPACE, built_ttf
 from .check_mark_spacing import prepare
 from .directwrite_spacing import DirectWriteProbe
 from ...font_checks import file_hash
@@ -72,7 +72,7 @@ def run(args):
         # Finish each stage for every family before starting the next stage.
         for stage in STAGES:
             for key in families:
-                font = args.fonts / key / (FAMILIES[key]+'-Portable-VF.ttf')
+                font = built_ttf(args.fonts / key, key)
                 folder = args.output/key/stage
                 def evaluate():
                     build = load(font.parent/'report.json')

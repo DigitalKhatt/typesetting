@@ -13,7 +13,7 @@ from fontTools.varLib.instancer import instantiateVariableFont
 
 from tools.font_validation.compare_opentype_runs import comparable_names
 
-from ..project import FAMILIES, GLYPH_USAGE_DIR, VALIDATION_DIR
+from ..project import FAMILIES, GLYPH_USAGE_DIR, VALIDATION_DIR, built_ttf
 from .audit_portable_usage import save_json, verify_inputs
 from ...font_checks import WEIGHTS, file_hash
 from .probes import compile_corpus_trace
@@ -62,7 +62,7 @@ def geometry(before, after, retained):
 def compare(args, key, probe, work, profiles):
     folders = (args.before / key, args.after / key)
     builds = [json.loads((folder / 'report.json').read_text()) for folder in folders]
-    paths = [folder / (FAMILIES[key] + '-Portable-VF.ttf') for folder in folders]
+    paths = [built_ttf(folder, key) for folder in folders]
     for build, path in zip(builds, paths):
         if file_hash(path) != build['fontSha256'] or path.stat().st_size != build['stages']['packedTTF']['bytes']:
             raise ValueError(f'TTF differs from its build report: {path}')

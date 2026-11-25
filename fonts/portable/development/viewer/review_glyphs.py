@@ -13,7 +13,7 @@ import webbrowser
 from fontTools.pens.basePen import BasePen
 from fontTools.ttLib import TTFont
 
-from ..project import CORPORA_DIR, FAMILIES, FONTS_DIR, OUTPUT_DIR, VALIDATION_DIR
+from ..project import CORPORA_DIR, FAMILIES, FONTS_DIR, OUTPUT_DIR, VALIDATION_DIR, built_ttf
 from ..validation.check_mark_spacing import prepare
 from ..validation.release_weights import coverage_plan
 
@@ -107,11 +107,11 @@ def collect_usage(hb_shape, path, text, weights, places, em, tajweed):
 
 
 def build_family(key, fonts, corpora, work, site, profiles, common):
-    name = FAMILIES[key] + '-Portable-VF.ttf'
     folder = fonts / key
+    original = built_ttf(folder, key)
     work.mkdir()
-    snapshot = work / name
-    for source, dest in ((folder / 'report.json', work / 'report.json'), (folder / name, snapshot)):
+    snapshot = work / original.name
+    for source, dest in ((folder / 'report.json', work / 'report.json'), (original, snapshot)):
         if not source.is_file():
             raise FileNotFoundError(f'{source}. Build the three portable TTFs for this build selection first.')
         shutil.copyfile(source, dest)

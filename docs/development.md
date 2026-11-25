@@ -1,6 +1,6 @@
-# Build Portable fonts from source
+# Build OpenType fonts from source
 
-Open `digitalkhatt.code-workspace` in VS Code. The **Typesetting** folder provides the Portable tasks. The native workflow uses the enclosing DigitalKhatt workspace with VisualMetaFont, the three font projects, and the shared corpus and validation tools in `tools/font_validation/`. Run the commands below from the `typesetting` checkout.
+Open `digitalkhatt.code-workspace` in VS Code. The **Typesetting** folder provides the OpenType font tasks. The native workflow uses the enclosing DigitalKhatt workspace with VisualMetaFont, the three font projects, and the shared corpus and validation tools in `tools/font_validation/`. Run the commands below from the `typesetting` checkout.
 
 ## Build from scratch
 
@@ -34,7 +34,7 @@ The fitter also needs a C++20 compiler, HarfBuzz and Clipper2 available through 
 | **Build fonts from archived checkpoints** | Replays the archived calibration and verifies the three rule files. Writes `output/replay/fonts/`. |
 | **Build and check release fonts** | Uses the calibrated rules, builds TTF and WOFF2, and runs the release checks. |
 
-These tasks prepare missing corpora. Run **Refresh original corpora** when changing a corpus input, layout, or normalization setting. Each family’s `latest.json` points to its latest complete original text export. The native builder exports a fresh Regular OTF from the selected font project, then calls the same compiler as the [standalone build](../README.md#build-the-portable-fonts).
+These tasks prepare missing corpora. Run **Refresh original corpora** when changing a corpus input, layout, or normalization setting. Each family’s `latest.json` points to its latest complete original text export. The native builder exports a fresh Regular OTF from the selected font project, then calls the same compiler. [Standalone build](../README.md#build-the-opentype-fonts)
 
 ```sh
 python3 -m fonts.portable.development.prepare_corpora --if-missing

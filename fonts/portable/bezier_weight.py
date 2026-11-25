@@ -269,9 +269,9 @@ def bold_outline(regular, dx, dy, strength, counter_scale, joins=()):
     return bold
 
 
-def set_portable_names(font):
+def set_variable_names(font):
     names = font['name']
-    family = (names.getDebugName(16) or names.getDebugName(1)) + ' Portable'
+    family = names.getDebugName(16) or names.getDebugName(1)
     ps_family = ''.join(c for c in family if c.isascii() and c.isalnum())[:52]
     replacements = {1: family, 2: 'Regular', 3: ps_family + '-Regular-' + str(font['head'].fontRevision),
                     4: family + ' Regular', 6: ps_family + '-Regular', 16: family,
@@ -323,7 +323,7 @@ def build(font, dx, dy, mark_scale, counter_scale, scales, edits, *, fixed_advan
     gdef.decompile(font.getTableData('GDEF'), font)
     classes = gdef.table.GlyphClassDef.classDefs
     builder = FontBuilder(font=font)
-    family = set_portable_names(font)
+    family = set_variable_names(font)
     weights = [(400, 'Regular'), (500, 'Medium'), (700, 'Bold')]
     builder.setupFvar([('wght', 400, 400, 700, 'Weight')], [
         dict(location={'wght': w}, stylename=n, postscriptfontname=family + '-' + n)

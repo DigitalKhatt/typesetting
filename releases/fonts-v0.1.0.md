@@ -1,20 +1,20 @@
-# DigitalKhatt Portable fonts 0.1.0
+# DigitalKhatt OpenType fonts 0.1.0
 
-The first Portable release includes **New Madina**, **Old Madina**, and
+This release includes **New Madina**, **Old Madina**, and
 **IndoPak**. Each font uses standard OpenType shaping and a continuous
 `wght` axis from 400 to 700.
 
 | Family | TTF bytes | WOFF2 bytes |
 | --- | ---: | ---: |
-| New Madina | 759,668 | 154,244 |
-| Old Madina | 903,156 | 165,700 |
-| IndoPak | 736,840 | 128,388 |
+| New Madina | 759,552 | 154,028 |
+| Old Madina | 903,040 | 165,452 |
+| IndoPak | 736,724 | 128,364 |
 
 Use the TTFs for installation or app bundling and the WOFF2s for websites.
-`DigitalKhatt-Portable-Fonts-0.1.0.zip` contains all six files and their SIL
+`DigitalKhatt-OpenType-Fonts.zip` contains all six files and their SIL
 Open Font License notices. The `portable-regular-inputs.zip` archive
 contains the exact CFF2 inputs for the standalone build. Verify downloads
-with `SHA256SUMS.txt`. [Rebuild instructions](https://github.com/DigitalKhatt/typesetting/blob/fonts-v0.1.0/README.md#build-the-portable-fonts) · [Source revisions and checksums](https://github.com/DigitalKhatt/typesetting/blob/fonts-v0.1.0/releases/fonts-v0.1.0.json)
+with `SHA256SUMS.txt`. [Rebuild instructions](https://github.com/DigitalKhatt/typesetting/blob/fonts-v0.1.0/README.md#build-the-opentype-fonts) · [Source revisions and checksums](https://github.com/DigitalKhatt/typesetting/blob/fonts-v0.1.0/releases/fonts-v0.1.0.json)
 
 ## Validation
 

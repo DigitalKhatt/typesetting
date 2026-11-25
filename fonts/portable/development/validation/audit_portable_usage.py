@@ -16,7 +16,7 @@ from fontTools.ttLib import TTFont
 from tools.font_validation.compare_opentype_runs import comparable_names, outlines
 
 from ..build_portable import export_regular, native_exporter
-from ..project import FAMILIES, FONTS_DIR, GLYPH_USAGE_DIR, VALIDATION_DIR, WORKSPACE
+from ..project import FAMILIES, FONTS_DIR, GLYPH_USAGE_DIR, VALIDATION_DIR, WORKSPACE, built_ttf
 from ...font_checks import file_hash
 from .probes import compile_corpus_trace
 
@@ -206,7 +206,7 @@ def audit(key, out, fonts, probe, profiles, verify_unlinked=False):
     folder = out / key
     build_dir = fonts / key
     build = json.loads((build_dir / 'report.json').read_text())
-    font_path = build_dir / (FAMILIES[key] + '-Portable-VF.ttf')
+    font_path = built_ttf(build_dir, key)
     plan, places, size, corpus = verify_inputs(key, folder, font_path, build, profiles['fonts'][key]['layout'])
     provenance = json.loads((folder / 'native-trace.json').read_text())
     if not provenance['matchedNativeTables'] or provenance['sourceSha256'] != build['sourceSha256']:

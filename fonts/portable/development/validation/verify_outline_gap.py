@@ -17,7 +17,7 @@ from fontTools.ttLib import TTFont
 
 from tools.font_validation.validate import save
 
-from ..project import FAMILIES, FONTS_DIR, VALIDATION_DIR
+from ..project import FAMILIES, FONTS_DIR, VALIDATION_DIR, built_ttf
 from .check_mark_spacing import prepare
 from ...font_checks import file_hash
 
@@ -276,7 +276,7 @@ def main():
         parser.error('Tolerance must be finite and at least 0.000001')
     profiles = json.loads((VALIDATION_DIR/'config/profiles.json').read_text())
     common = json.loads((VALIDATION_DIR/'config/common.settings.json').read_text())
-    font = args.fonts / args.family / (FAMILIES[args.family] + '-Portable-VF.ttf')
+    font = built_ttf(args.fonts / args.family, args.family)
     summary = json.loads((args.run/'summary.json').read_text())
     if 'directWrite' not in summary:
         parser.error('Choose a run with native DirectWrite outline records')

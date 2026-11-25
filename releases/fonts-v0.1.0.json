@@ -34,9 +34,9 @@
     "madina": {
       "name": "New Madina",
       "sourceRepository": "https://github.com/DigitalKhatt/madinafont",
-      "sourceRevision": "85b392801efd6016be6e8b816c975d212d65d127",
+      "sourceRevision": "76fec9e1255c9ffebe68521d5f3ec3cb26e34388",
       "license": {
-        "source": "https://github.com/DigitalKhatt/madinafont/blob/85b392801efd6016be6e8b816c975d212d65d127/LICENSE",
+        "source": "https://github.com/DigitalKhatt/madinafont/blob/76fec9e1255c9ffebe68521d5f3ec3cb26e34388/LICENSE",
         "fontArchivePath": "licenses/New-Madina-OFL.txt",
         "regularInputArchivePath": "portable-regular-inputs/licenses/New-Madina-OFL.txt"
       },
@@ -52,14 +52,14 @@
       },
       "fonts": {
         "ttf": {
-          "name": "DigitalKhattNewMadina-Portable-VF.ttf",
-          "bytes": 759668,
-          "sha256": "94d042ee0dfbdebb0a25749b33586c1ad1d939a815174d0f494c64a72d80f928"
+          "name": "DigitalKhattNewMadina-VF.ttf",
+          "bytes": 759552,
+          "sha256": "9daf0806fc7f1b79acdfbd23f3e3ec5c31b6e006329117590e7f239b9a62753b"
         },
         "woff2": {
-          "name": "DigitalKhattNewMadina-Portable-VF.woff2",
-          "bytes": 154244,
-          "sha256": "a9b10b616df3dfa2e8fc710da775fff524b87fd60b4ca57f831047582ad9bcf5"
+          "name": "DigitalKhattNewMadina-VF.woff2",
+          "bytes": 154028,
+          "sha256": "55a95c5c5ac8f94a97536bfed34c31203879ed0f9226807ea968dfa7ee943b32"
         }
       }
     },
@@ -84,14 +84,14 @@
       },
       "fonts": {
         "ttf": {
-          "name": "DigitalKhattOldMadina-Portable-VF.ttf",
-          "bytes": 903156,
-          "sha256": "4d1cb302994c19d841b4b59c10e7c57d43b3d108c0ebd60cc6927e629ec866ea"
+          "name": "DigitalKhattOldMadina-VF.ttf",
+          "bytes": 903040,
+          "sha256": "3d9e680655a5412816abb4f75fc3df9bd8f42ab69c0af686a3478f2aa526ba37"
         },
         "woff2": {
-          "name": "DigitalKhattOldMadina-Portable-VF.woff2",
-          "bytes": 165700,
-          "sha256": "5e6411965647b7e0eb3976f8db1a687161a72eb62f49ba57a72a4c48f9795ce1"
+          "name": "DigitalKhattOldMadina-VF.woff2",
+          "bytes": 165452,
+          "sha256": "fa1f2d42409e281234ce193dc5fddc2ee284bed30d541130d147efa828080991"
         }
       }
     },
@@ -116,26 +116,26 @@
       },
       "fonts": {
         "ttf": {
-          "name": "DigitalKhattIndoPak-Portable-VF.ttf",
-          "bytes": 736840,
-          "sha256": "a8e0054933d2eb64e0f9cb4011f818ca7252866568756c11ef6439bec2119f9e"
+          "name": "DigitalKhattIndoPak-VF.ttf",
+          "bytes": 736724,
+          "sha256": "7564358ed5f860c90336f65e0fd187d2fee445a1bbf6fab4e4937a4e5a5fafa5"
         },
         "woff2": {
-          "name": "DigitalKhattIndoPak-Portable-VF.woff2",
-          "bytes": 128388,
-          "sha256": "84e38e0504f2491afecbbe29d1255c21c5c413bf0f7d56f02201019b07081cfc"
+          "name": "DigitalKhattIndoPak-VF.woff2",
+          "bytes": 128364,
+          "sha256": "ecab9f9b2d336c87468643ad7e7ff53507cbd0e68a494b8d43dfcf1c58e1170f"
         }
       }
     }
   },
   "archives": {
-    "DigitalKhatt-Portable-Fonts-0.1.0.zip": {
-      "bytes": 1097920,
-      "sha256": "54e5c9270c0b45d2b2047119487011f2cac6329d7264aa64a3a7fa7cfe760808"
+    "DigitalKhatt-OpenType-Fonts.zip": {
+      "bytes": 1097145,
+      "sha256": "fa5e76db816e8816d18d9d7db0eaf5d726f63ee8d5f43f98aa5278b0a083dd00"
     },
     "portable-regular-inputs.zip": {
-      "bytes": 1016591,
-      "sha256": "39e8f8fd2280e7cc17d60e395c9f77683092d1c0e7c2afa6f2373cee9f7835bc"
+      "bytes": 1016589,
+      "sha256": "40224a49511a922a3f04934711e75b1042d828d7658efee43db4a1843c6953b4"
     }
   },
   "validation": {

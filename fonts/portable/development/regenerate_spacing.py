@@ -11,7 +11,7 @@ from tempfile import TemporaryDirectory, mkdtemp
 
 from tools.compare_baselines.compare_baselines import run_lock
 
-from .project import DATA_DIR, FAMILIES, TYPESETTING_DIR, VALIDATION_DIR, WORKSPACE
+from .project import DATA_DIR, FAMILIES, TYPESETTING_DIR, VALIDATION_DIR, WORKSPACE, built_ttf
 from .validation.check_mark_spacing import check, prepare, weight_grid
 from .validation.directwrite_spacing import DirectWriteProbe
 from ..font_checks import file_hash
@@ -135,7 +135,7 @@ def fit_family(family, args, probes, profiles, common, dw):
         fonts = stage / 'fonts'
         subprocess.run([sys.executable, '-m', f'{__package__}.build_portable', '--font', family,
                         '--spacing-rules', rules.parent, '--output', fonts], cwd=TYPESETTING_DIR, check=True)
-        font = fonts / family / (FAMILIES[family] + '-Portable-VF.ttf')
+        font = built_ttf(fonts / family, family)
         suggest = number < args.rounds
         score, votes, corpus = measure(stage, probes, font, family, rows, args, profiles, common, dw, number, suggest)
         if original_corpus is not None and corpus != original_corpus:

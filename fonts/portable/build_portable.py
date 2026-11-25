@@ -1,4 +1,4 @@
-"""Build DigitalKhatt Portable TTF and WOFF2 fonts from static CFF2 exports."""
+"""Build DigitalKhatt OpenType variable fonts from static CFF2 exports."""
 import argparse
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -26,6 +26,7 @@ FAMILIES = {
     'oldmadina': 'DigitalKhattOldMadina',
     'indopak': 'DigitalKhattIndoPak',
 }
+FONT_STEMS = {key: name + '-VF' for key, name in FAMILIES.items()}
 
 
 @dataclass
@@ -83,7 +84,7 @@ def pack_layout(source, shared, final, work):
 
 def compile_family(key, source, args, work, *, woff2):
     """Compile one static Portable export in a staging directory."""
-    stem = FAMILIES[key] + '-Portable-VF'
+    stem = FONT_STEMS[key]
     cubic, flat, shared = (work / name for name in ('weight-reference.otf', 'flat.ttf', 'shared.ttf'))
     final = work / (stem + '.ttf')
     spacing = []
